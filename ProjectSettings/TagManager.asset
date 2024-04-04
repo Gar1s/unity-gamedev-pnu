@@ -6,6 +6,8 @@ TagManager:
   tags:
   - winCylinder
   - Enemies
+  - CoinCount
+  - Coin
   layers:
   - Default
   - TransparentFX

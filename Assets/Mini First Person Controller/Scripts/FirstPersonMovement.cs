@@ -17,12 +17,19 @@ public class FirstPersonMovement : MonoBehaviour
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
 
+    public Text coinText;
+    private int totalCoins;
 
 
     void Awake()
     {
         // Get the rigidbody on this.
         rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        totalCoins = 0;
     }
 
     void FixedUpdate()
@@ -50,5 +57,16 @@ public class FirstPersonMovement : MonoBehaviour
         {
             rigidbody.isKinematic = true;
         }
+        else if (other.gameObject.CompareTag("Coin"))
+        {
+            other.gameObject.SetActive(false);
+            totalCoins = totalCoins + 1;
+            coinText.text = "Coins: " + totalCoins.ToString();
+        }
+    }
+
+    public int GetTotalCoins()
+    {
+        return totalCoins;
     }
 }

@@ -8,22 +8,21 @@ public class Wincylinder : MonoBehaviour
 {
     public Text winText;
 
-    void Start()
-    {
-        // winText.text = "";
-    }
-
-    void FixedUpdate()
-    {
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
-            winText.text = "You win!";
-            Invoke("ReloadScene", 2);
+            if (other.gameObject.GetComponent<FirstPersonMovement>().GetTotalCoins() == 6)
+            {
+                gameObject.SetActive(false);
+                winText.text = "You win!";
+                Invoke("ReloadScene", 2);
+            }
+            else
+            {
+                winText.text = "Not enougth coins to win!";
+                StartCoroutine(ShowAndHideText());
+            }
         }
     }
 
@@ -31,4 +30,11 @@ public class Wincylinder : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    IEnumerator ShowAndHideText()
+    {
+        yield return new WaitForSeconds(2);
+        winText.text = "";
+    }
+
 }

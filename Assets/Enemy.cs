@@ -7,17 +7,6 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public Text winText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        // winText.text = "";
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-
-    }
 
     void OnTriggerEnter(Collider other)
     {
