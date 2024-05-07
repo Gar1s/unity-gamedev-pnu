@@ -6,4 +6,7 @@
 
 ![](/2D_ROGUE_LIKE_GAME_UNITY.gif?raw=true 'ROGUE_LIKE_GAME')
 
-[Play GAME](http://htmlpreview.github.io/?https://github.com/TARTIGA/2DRogueLikeGame_Unity/blob/master/WEBGL_2D_ROGUE_LIKE/index.html)
+![image](https://github.com/Gar1s/unity-gamedev-pnu/assets/134232609/a5f4e2fb-c0cf-4ea5-8cc3-7a9d8513075b)
+![image](https://github.com/Gar1s/unity-gamedev-pnu/assets/134232609/8299aefb-4502-4856-824a-bd8cf5a080b2)
+
+
