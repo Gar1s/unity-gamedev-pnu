@@ -53,7 +53,7 @@ public class Enemy : MovingObject
     protected override void OnCantMove<T>(T component)
     {
         Player hitPlayer = component as Player;
-        hitPlayer.LoseFood(playerDamage);
+        hitPlayer.LoseHealth(playerDamage);
         animator.SetTrigger("enemyAttack");
         SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
     }

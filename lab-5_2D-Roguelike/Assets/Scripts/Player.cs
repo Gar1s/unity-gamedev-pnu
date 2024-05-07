@@ -9,9 +9,11 @@ public class Player : MovingObject
 
     public int wallDamage = 1;
     public int pointsPerFood = 10;
+    public int pointsPerHealth = 10;
     public int pointsPerSoda = 1;
     public float restartLevelDelay = 1f;
     public Text foodText;
+    public Text healthText;
 
     public AudioClip moveSound1;
     public AudioClip moveSound2;
@@ -23,6 +25,7 @@ public class Player : MovingObject
 
     private Animator animator;
     private int food;
+    private int health;
     private Vector2 touchOrigin = -Vector2.one;
 
     // Start is called before the first frame update
@@ -30,8 +33,10 @@ public class Player : MovingObject
     {
         animator = GetComponent<Animator>();
         food = GameManager.instance.playerFoodPoint;
+        health = GameManager.instance.playerHealthPoint;
 
         foodText.text = "Food: " + food;
+        healthText.text = "Health: " + health;
 
         base.Start();
     }
@@ -93,12 +98,14 @@ public class Player : MovingObject
     private void OnDisable()
     {
         GameManager.instance.playerFoodPoint = food;
+        GameManager.instance.playerHealthPoint = health;
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
         food--;
         foodText.text = "Food: " + food;
+        healthText.text = "Health: " + health;
         base.AttemptMove<T>(xDir, yDir);
         RaycastHit2D hit;
 
@@ -138,6 +145,13 @@ public class Player : MovingObject
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
         }
+        else if (other.tag == "Heart")
+        {
+            health += pointsPerHealth;
+            healthText.text = "+" + pointsPerHealth + " Health: " + health;
+            // SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
+            other.gameObject.SetActive(false);
+        }
     }
     protected override void OnCantMove<T>(T component)
     {
@@ -154,21 +168,27 @@ public class Player : MovingObject
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void LoseFood(int loss)
+    public void LoseHealth(int loss)
     {
         animator.SetTrigger("playerHit");
-        food -= loss;
-        foodText.text = "-" + loss + " Food:" + food;
+        health -= loss;
+        healthText.text = "-" + loss + " Health:" + health;
         CheckIfGameOver();
     }
 
     private void CheckIfGameOver()
     {
-        if (food <= 0)
+        if (health <= 0)
         {
             SoundManager.instance.PlaySingle(gameOverSound);
             SoundManager.instance.musicSource.Stop();
-            GameManager.instance.GameOver();
+            GameManager.instance.HealthGameOver();
+        }
+        else if (food <= 0)
+        {
+            SoundManager.instance.PlaySingle(gameOverSound);
+            SoundManager.instance.musicSource.Stop();
+            GameManager.instance.FoodGameOver();
         }
     }
 

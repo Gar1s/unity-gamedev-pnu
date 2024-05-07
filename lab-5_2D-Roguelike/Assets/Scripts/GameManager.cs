@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public int playerFoodPoint = 100;
 
+    public int playerHealthPoint = 100;
+
     [HideInInspector] public bool playersTurn = true;
 
     private Text levelText;
@@ -65,7 +67,14 @@ public class GameManager : MonoBehaviour
         enemies.Add(script);
     }
 
-    public void GameOver()
+    public void HealthGameOver()
+    {
+        levelText.text = "After " + level + " days, you've been killed.";
+        levelImage.SetActive(true);
+        enabled = false;
+    }
+
+    public void FoodGameOver()
     {
         levelText.text = "After " + level + " days, you starved.";
         levelImage.SetActive(true);

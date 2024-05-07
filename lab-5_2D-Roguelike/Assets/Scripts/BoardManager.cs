@@ -23,11 +23,13 @@ public class BoardManager : MonoBehaviour
 
     public Count wallCount = new Count(5, 9);
     public Count foodCount = new Count(1, 5);
+    public Count heartCount = new Count(1, 3);
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] outerWallTiles;
     public GameObject[] foodTiles;
+    public GameObject[] heartTiles;
     public GameObject[] enemyTiles;
 
     private Transform boardHolder;
@@ -89,6 +91,7 @@ public class BoardManager : MonoBehaviour
         InitialisedList();
         LayoutObjectAtRandom(wallTiles, wallCount.mininmum, wallCount.maximum);
         LayoutObjectAtRandom(foodTiles, foodCount.mininmum, foodCount.maximum);
+        LayoutObjectAtRandom(heartTiles, heartCount.mininmum, heartCount.maximum);
         int enemyCount = (int)Mathf.Log(level, 2f);
         LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
         Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
